@@ -5,6 +5,7 @@ public class JogoDaVelha {
     static char[][] tabuleiro = new char[3][3];
     static char jogadorAtual = 'X';
     static Scanner scanner = new Scanner(System.in);
+    static int rodada = 1;
 
     public static void main(String[] args) {
         inicializarTabuleiro();
@@ -12,26 +13,30 @@ public class JogoDaVelha {
 
         System.out.println("=== JOGO DA VELHA ===");
         System.out.println("Jogador 1: X  |  Jogador 2: O");
-        System.out.println("Posições do tabuleiro:");
-        System.out.println(" 1 | 2 | 3 ");
-        System.out.println(" 4 | 5 | 6 ");
-        System.out.println(" 7 | 8 | 9 ");
+        System.out.println("Linhas e colunas numeradas de 1 a 3");
         System.out.println("=====================\n");
 
+        exibirTabuleiro();
+
         while (jogoAtivo) {
-            exibirTabuleiro();
+            System.out.println("Rodada " + rodada);
+            int jogador = (jogadorAtual == 'X') ? 1 : 2;
+            System.out.println("É a vez do jogador " + jogador);
             realizarJogada();
 
             if (verificarVitoria()) {
                 exibirTabuleiro();
-                System.out.println(" Jogador " + jogadorAtual + " venceu!");
+                int jogadorVencedor = (jogadorAtual == 'X') ? 1 : 2;
+                System.out.println("Jogador " + jogadorVencedor + " ganhou!");
                 jogoAtivo = false;
             } else if (verificarEmpate()) {
                 exibirTabuleiro();
-                System.out.println(" Empate! Nenhum jogador venceu.");
+                System.out.println("Empate! Nenhum jogador venceu.");
                 jogoAtivo = false;
             } else {
+                exibirTabuleiro();
                 alternarJogador();
+                rodada++;
             }
         }
 
@@ -50,37 +55,43 @@ public class JogoDaVelha {
         System.out.println();
         for (int i = 0; i < 3; i++) {
             System.out.println(" " + tabuleiro[i][0] + " | " + tabuleiro[i][1] + " | " + tabuleiro[i][2]);
-            if (i < 2)
-                System.out.println("---+---+---");
         }
         System.out.println();
     }
 
-    // Lê e valida a jogada do jogador atual
+    // Lê e valida a jogada do jogador atual por linha e coluna
     static void realizarJogada() {
-        int posicao = -1;
-        boolean jogadaValida = false;
+        int linha = -1;
+        int coluna = -1;
 
-        while (!jogadaValida) {
-            System.out.print("Jogador " + jogadorAtual + ", escolha uma posição (1-9): ");
-            try {
-                posicao = Integer.parseInt(scanner.nextLine().trim());
+        for (boolean jogadaValida = false; !jogadaValida;) {
 
-                if (posicao < 1 || posicao > 9) {
-                    System.out.println(" Posição inválida! Digite um número de 1 a 9.");
-                } else {
-                    int linha = (posicao - 1) / 3;
-                    int coluna = (posicao - 1) % 3;
-
-                    if (tabuleiro[linha][coluna] != ' ') {
-                        System.out.println(" Posição já ocupada! Escolha outra.");
-                    } else {
-                        tabuleiro[linha][coluna] = jogadorAtual;
-                        jogadaValida = true;
-                    }
-                }
-            } catch (NumberFormatException e) {
+            // Leitura da linha
+            System.out.print("Linha: ");
+            if (!scanner.hasNextInt()) {
                 System.out.println(" Entrada inválida! Digite apenas números.");
+                scanner.next();
+                continue;
+            }
+            linha = scanner.nextInt();
+
+            // Leitura da coluna
+            System.out.print("Coluna: ");
+            if (!scanner.hasNextInt()) {
+                System.out.println(" Entrada inválida! Digite apenas números.");
+                scanner.next();
+                continue;
+            }
+            coluna = scanner.nextInt();
+
+            // Validações
+            if (linha < 1 || linha > 3 || coluna < 1 || coluna > 3) {
+                System.out.println(" Posição inválida! Linha e coluna devem ser entre 1 e 3.");
+            } else if (tabuleiro[linha - 1][coluna - 1] != ' ') {
+                System.out.println(" Posição já ocupada! Escolha outra.");
+            } else {
+                tabuleiro[linha - 1][coluna - 1] = jogadorAtual;
+                jogadaValida = true;
             }
         }
     }

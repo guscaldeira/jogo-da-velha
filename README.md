@@ -1,4 +1,4 @@
-#  Jogo da Velha — Java
+# 🎮 Jogo da Velha — Java
 
 Implementação do clássico Jogo da Velha em Java, com interface no terminal e suporte para dois jogadores.
 
@@ -6,7 +6,7 @@ Implementação do clássico Jogo da Velha em Java, com interface no terminal e 
 
 ##  Sobre o Projeto
 
-O jogo utiliza uma **matriz 3x3** para controlar o tabuleiro e toda a lógica está concentrada em uma única classe com o método `main()`.
+O jogo utiliza uma **matriz 3x3** para controlar o tabuleiro e toda a lógica está concentrada em uma única classe com o método `main()`. Cada jogador escolhe a posição informando a **linha** e a **coluna** separadamente, e o jogo exibe o tabuleiro atualizado após cada rodada.
 
 ---
 
@@ -14,10 +14,10 @@ O jogo utiliza uma **matriz 3x3** para controlar o tabuleiro e toda a lógica es
 
 | Método | O que faz |
 |---|---|
-| `main()` | Controla o loop principal do jogo |
+| `main()` | Controla o loop principal do jogo e o contador de rodadas |
 | `inicializarTabuleiro()` | Preenche a matriz 3x3 com espaços vazios |
 | `exibirTabuleiro()` | Desenha o tabuleiro formatado no console |
-| `realizarJogada()` | Lê, valida e registra a jogada do jogador |
+| `realizarJogada()` | Lê e valida a linha e coluna digitadas pelo jogador |
 | `verificarVitoria()` | Checa linhas, colunas e diagonais |
 | `verificarEmpate()` | Verifica se todas as casas estão ocupadas |
 | `alternarJogador()` | Troca entre `X` e `O` a cada rodada |
@@ -26,20 +26,35 @@ O jogo utiliza uma **matriz 3x3** para controlar o tabuleiro e toda a lógica es
 
 ##  Como Jogar
 
-O tabuleiro é numerado de 1 a 9:
-
-```
- 1 | 2 | 3
----+---+---
- 4 | 5 | 6
----+---+---
- 7 | 8 | 9
-```
-
 - **Jogador 1** usa `X`
 - **Jogador 2** usa `O`
-- Os jogadores se alternam escolhendo uma posição (1–9)
+- A cada rodada, o jogador informa a **linha** (1–3) e a **coluna** (1–3) onde deseja jogar
+- O tabuleiro é exibido após cada jogada
 - Vence quem completar uma linha, coluna ou diagonal
+
+### Exemplo de partida
+
+```
+=== JOGO DA VELHA ===
+Jogador 1: X  |  Jogador 2: O
+Linhas e colunas numeradas de 1 a 3
+  |   |
+  |   |  
+  |   |
+Rodada 1
+É a vez do jogador 1
+Linha: 1
+Coluna: 2
+  |   |
+  | X |  
+  |   |
+Rodada 2
+É a vez do jogador 2
+Linha: 2
+Coluna: 2
+...
+Jogador 1 ganhou!
+```
 
 ---
 
@@ -59,9 +74,9 @@ java JogoDaVelha
 
 ##  Validações
 
-- Posição fora do intervalo (< 1 ou > 9)
-- Posição já ocupada
-- Entrada que não é um número
+- Entrada que não é um número (`hasNextInt()`)
+- Linha ou coluna fora do intervalo (< 1 ou > 3)
+- Posição já ocupada por outro jogador
 
 ---
 
@@ -72,6 +87,3 @@ java JogoDaVelha
 
 ---
 
-##  Licença
-
-Este projeto está sob a licença MIT. Sinta-se livre para usar e modificar.
