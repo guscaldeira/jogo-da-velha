@@ -4,7 +4,7 @@ public class JogoDaVelha {
 
     static char[][] tabuleiro = new char[3][3];
     static char jogadorAtual = 'X';
-    static Scanner scanner = new Scanner(System.in);
+    static Scanner entrada = new Scanner(System.in);
     static int rodada = 1;
 
     public static void main(String[] args) {
@@ -40,7 +40,7 @@ public class JogoDaVelha {
             }
         }
 
-        scanner.close();
+        entrada.close();
     }
 
     // Preenche o tabuleiro com espaços vazios
@@ -68,21 +68,21 @@ public class JogoDaVelha {
 
             // Leitura da linha
             System.out.print("Linha: ");
-            if (!scanner.hasNextInt()) {
+            if (!entrada.hasNextInt()) {
                 System.out.println(" Entrada inválida! Digite apenas números.");
-                scanner.next();
+                entrada.next();
                 continue;
             }
-            linha = scanner.nextInt();
+            linha = entrada.nextInt();
 
             // Leitura da coluna
             System.out.print("Coluna: ");
-            if (!scanner.hasNextInt()) {
+            if (!entrada.hasNextInt()) {
                 System.out.println(" Entrada inválida! Digite apenas números.");
-                scanner.next();
+                entrada.next();
                 continue;
             }
-            coluna = scanner.nextInt();
+            coluna = entrada.nextInt();
 
             // Validações
             if (linha < 1 || linha > 3 || coluna < 1 || coluna > 3) {
