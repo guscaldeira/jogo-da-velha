@@ -1,4 +1,4 @@
-# 🎮 Jogo da Velha — Java
+#  Jogo da Velha — Java
 
 Implementação do clássico Jogo da Velha em Java, com interface no terminal e suporte para dois jogadores.
 
